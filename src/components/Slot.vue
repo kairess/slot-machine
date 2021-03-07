@@ -72,6 +72,7 @@ export default {
   mounted() {
     const config = {
       inverted: true,
+      slotName: 'starwars'
     }
 
     this.slot = new Slot(document.getElementById('slot'), config)

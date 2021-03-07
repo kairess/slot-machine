@@ -1,9 +1,10 @@
 import Symbol from "./Symbol.js";
 
 export default class Reel {
-  constructor(reelContainer, idx, initialSymbols) {
+  constructor(reelContainer, idx, slotName, initialSymbols) {
     this.reelContainer = reelContainer;
     this.idx = idx;
+    this.slotName = slotName
 
     this.symbolContainer = document.createElement("div");
     this.symbolContainer.classList.add("icons");
@@ -30,7 +31,7 @@ export default class Reel {
     this.animation.cancel();
 
     initialSymbols.forEach((symbol) =>
-      this.symbolContainer.appendChild(new Symbol(symbol).img)
+      this.symbolContainer.appendChild(new Symbol(this.slotName, symbol).img)
     );
   }
 

@@ -1,34 +1,35 @@
 const cache = {};
 
 export default class Symbol {
-  constructor(name = Symbol.random()) {
+  constructor(slotName = 'starwars', name = Symbol.random()) {
+    this.slotName = slotName;
     this.name = name;
 
     if (cache[name]) {
       this.img = cache[name].cloneNode();
     } else {
       this.img = new Image();
-      this.img.src = `/symbols/${name}.svg`
+      this.img.src = `/symbols/${slotName}/${name}.svg`
 
       cache[name] = this.img;
     }
   }
 
-  static preload() {
-    Symbol.symbols.forEach((symbol) => new Symbol(symbol));
+  static preload(slotName) {
+    Symbol.symbols.forEach((symbol) => new Symbol(slotName, symbol));
   }
 
   static get symbols() {
     return [
-      "at_at",
-      "c3po",
-      "darth_vader",
-      "death_star",
-      "falcon",
-      "r2d2",
-      "stormtrooper",
-      "tie_ln",
-      "yoda",
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
     ];
   }
 

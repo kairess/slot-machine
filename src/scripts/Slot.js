@@ -3,29 +3,30 @@ import Symbol from "./Symbol.js";
 
 export default class Slot {
   constructor(domElement, config = {}) {
-    Symbol.preload();
+    this.slotName = config.slotName
+    Symbol.preload(config.slotName);
 
     this.currentSymbols = [
-      ["death_star", "death_star", "death_star"],
-      ["death_star", "death_star", "death_star"],
-      ["death_star", "death_star", "death_star"],
-      ["death_star", "death_star", "death_star"],
-      ["death_star", "death_star", "death_star"],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
     ];
 
     this.nextSymbols = [
-      ["death_star", "death_star", "death_star"],
-      ["death_star", "death_star", "death_star"],
-      ["death_star", "death_star", "death_star"],
-      ["death_star", "death_star", "death_star"],
-      ["death_star", "death_star", "death_star"],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
     ];
 
     this.container = domElement;
 
     this.reels = Array.from(this.container.getElementsByClassName("reel")).map(
       (reelContainer, idx) =>
-        new Reel(reelContainer, idx, this.currentSymbols[idx])
+        new Reel(reelContainer, idx, this.slotName,this.currentSymbols[idx])
     );
 
     if (config.inverted) {
