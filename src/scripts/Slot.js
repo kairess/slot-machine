@@ -38,7 +38,7 @@ export default class Slot {
     }
   }
 
-  spin() {
+  async spin() {
     this.onSpinStart();
 
     this.currentSymbols = this.nextSymbols;

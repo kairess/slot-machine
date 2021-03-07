@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="bg">
     <div id="slot">
       <div id="jackpot">Jackpot: <span id="jp">5.555.555</span></div>
       <div id="reels">
@@ -39,11 +39,12 @@ export default {
 </script>
 
 <style scoped>
-body {
+.bg {
   width: 100vw;
   height: 100vh;
   padding: 1rem;
   /* background-image: url("../assets/bg.jpg"); */
+  background: #000000;
   background-size: cover;
   display: flex;
   align-items: center;
@@ -53,8 +54,9 @@ body {
 }
 
 @media only screen and (max-width: 1200px) {
-  body {
+  .bg {
     /* background-image: url("../assets/bg_small.jpg"); */
+    background: #000000;
   }
 }
 
