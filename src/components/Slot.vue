@@ -25,7 +25,7 @@ import Slot from '../scripts/Slot'
 import Symbol from '../scripts/Symbol'
 
 export default {
-  name: 'HelloWorld',
+  name: 'Slot',
   props: {
     msg: String
   },
