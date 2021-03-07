@@ -10,9 +10,9 @@
         <div class="reel"></div>
       </div>
       <div id="controls">
-        <button type="button" id="spin">SPIN</button>
+        <button type="button" ref="spin-button" @click="spin">SPIN</button>
         <label>
-          <input type="checkbox" name="autoplay" id="autoplay" />
+          <input type="checkbox" name="autoplay" v-model="autoplay" />
           Autoplay
         </label>
       </div>
@@ -22,18 +22,59 @@
 
 <script>
 import Slot from '../scripts/Slot'
+import Symbol from '../scripts/Symbol'
 
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
   },
+  data() {
+    return {
+      slot: null,
+      autoplay: false,
+    }
+  },
+  methods: {
+    async spin() {
+      this.onSpinStart()
+
+      this.slot.currentSymbols = this.slot.nextSymbols
+      this.slot.nextSymbols = [
+        [Symbol.random(), Symbol.random(), Symbol.random()],
+        [Symbol.random(), Symbol.random(), Symbol.random()],
+        [Symbol.random(), Symbol.random(), Symbol.random()],
+        [Symbol.random(), Symbol.random(), Symbol.random()],
+        [Symbol.random(), Symbol.random(), Symbol.random()],
+      ]
+
+      return Promise.all(
+        this.slot.reels.map((reel) => {
+          reel.renderSymbols(this.slot.nextSymbols[reel.idx])
+          return reel.spin()
+        })
+      ).then(() => this.onSpinEnd())
+    },
+    onSpinStart() {
+      this.$refs['spin-button'].disabled = true
+      console.log("SPIN START")
+    },
+    onSpinEnd() {
+      console.log("SPIN END")
+
+      if (this.autoplay) {
+        return window.setTimeout(() => this.spin(), 200)
+      }
+
+      this.$refs['spin-button'].disabled = false
+    }
+  },
   mounted() {
     const config = {
       inverted: true,
-    };
+    }
 
-    this.slot = new Slot(document.getElementById('slot'), config);
+    this.slot = new Slot(document.getElementById('slot'), config)
   }
 }
 </script>
